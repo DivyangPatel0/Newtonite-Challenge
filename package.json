@@ -1,0 +1,18 @@
+{
+  "name": "worktracker",
+  "private": true,
+  "workspaces": ["server", "web"],
+  "scripts": {
+    "db:migrate": "npm run migrate --workspace=server",
+    "db:seed": "npm run seed --workspace=server",
+    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run worker --workspace=server\" \"npm run dev --workspace=web\"",
+    "test": "npm run test --workspace=server",
+    "build": "npm run build --workspace=server && npm run build --workspace=web",
+    "lint": "npm run lint --workspace=server && npm run lint --workspace=web",
+    "typecheck": "npm run typecheck --workspace=server && npm run typecheck --workspace=web"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.5.0"
+  }
+}

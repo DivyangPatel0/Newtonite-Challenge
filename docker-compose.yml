@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: worktracker
+      POSTGRES_PASSWORD: worktracker
+      POSTGRES_DB: worktracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U worktracker"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  postgres-test:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: worktracker_test
+      POSTGRES_PASSWORD: worktracker_test
+      POSTGRES_DB: worktracker_test
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U worktracker_test"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
